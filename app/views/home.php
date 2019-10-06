@@ -8,12 +8,6 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="" data-toggle="modal" data-target="#verify">Verify All</a></li>
-                <li class="divider"></li>
-                <li><a href="" data-toggle="modal" data-target="#unverify">Unverify All</a></li>
-                <li class="divider"></li>
-                <li><a href="" data-toggle="modal" data-target="#delete_year">Delete Year</a></li>
-                <li class="divider"></li>
                 <li><a href="" data-toggle="modal" data-target="#delete_class">Delete Class</a></li>
                 <li class="divider"></li>
                 <li><a href="" data-toggle="modal" data-target="#delete">Delete All</a></li>
@@ -43,7 +37,6 @@
             <th>Email</th>
             <th>Program</th>
             <th>Year</th>
-            <th>Residence</th>
         </tr>
         </thead>
         <tbody>
@@ -51,9 +44,8 @@
             <tr class="gradeA">
                 <td><?= $student->reg_no ?></td>
                 <td><?= $student->email ?></td>
-                <td><?= $student->program ?></td>
+                <td><?= $student->abbreviation ?></td>
                 <td><?= $student->year ?></td>
-                <td><?= $student->residence ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -110,21 +102,9 @@
 
                 <div class="form-group input-group">
                     <span class="input-group-addon">School</span>
-                    <select name="school_id" class="form-control">
-                        <?php foreach ($schools as $school): ?>
-                            <?= "<option value='$school->school_id'>$school->school</option>" ?>
-                        <?php endforeach; ?>
-                    </select>
+                    <input type="text">
                 </div>
 
-                <div class="form-group input-group">
-                    <span class="input-group-addon">Faculty</span>
-                    <select name="faculty_id" class="form-control">
-                        <?php foreach ($faculties as $faculty): ?>
-                            <?= "<option value='$faculty->faculty_id'>$faculty->faculty</option>" ?>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
 
                 <div class="form-group input-group">
                     <span class="input-group-addon">Year</span>
@@ -153,50 +133,50 @@
     </div>
 </div>
 
-<!---->
-<!--<div class="modal fade" id="delete_class" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>-->
-<!--                <h4 class="modal-title" id="myModalLabel">Choose year to delete</h4>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="modal-body">-->
-<!--                <h4 class="text-danger text-center">This will delete all students in the class below.</h4>-->
-<!--                --><?//= form_open('students/delete_class') ?>
-<!--                <div class="form-group input-group">-->
-<!--                    <span class="input-group-addon">Faculty</span>-->
-<!--                    <select name="faculty_id" class="form-control">-->
-<!--                        --><?php //foreach ($faculties as $faculty): ?>
-<!--                            --><?//= "<option value='$faculty->faculty_id'>$faculty->faculty</option>" ?>
-<!--                        --><?php //endforeach; ?>
-<!--                    </select>-->
-<!--                </div>-->
-<!---->
-<!--                <div class="form-group input-group">-->
-<!--                    <span class="input-group-addon">Year</span>-->
-<!--                    <select name="year" id="" class="form-control">-->
-<!--                        <option value="5">5</option>-->
-<!--                        <option value="4">4</option>-->
-<!--                        <option value="3">3</option>-->
-<!--                        <option value="2">2</option>-->
-<!--                        <option value="1">1</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-<!---->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>-->
-<!--                <button type="submit" class="btn btn-danger">Delete</button>-->
-<!--            </div>-->
-<!--            --><?//= form_close() ?>
-<!--        </div>-->
-<!---->
-<!---->
-<!--    </div>-->
-<!--</div>-->
+
+<div class="modal fade" id="delete_class" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="myModalLabel">Choose year to delete</h4>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="text-danger text-center">This will delete all students in the class below.</h4>
+                <?= form_open('students/delete_class') ?>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">Faculty</span>
+                    <select name="faculty_id" class="form-control">
+                        <!--                        --><?php //foreach ($faculties as $faculty): ?>
+                        <!--                            --><? //= "<option value='$faculty->faculty_id'>$faculty->faculty</option>" ?>
+                        <!--                        --><?php //endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="form-group input-group">
+                    <span class="input-group-addon">Year</span>
+                    <select name="year" id="" class="form-control">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+            <?= form_close() ?>
+        </div>
+
+
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {

@@ -13,6 +13,6 @@ class Home extends CI_Controller
         $view['students'] = $this->student_model->get_students();
 
         $view['view'] = 'home';
-        $this->load->view('base_layout', $view);
+        $this->load->view('base', $view);
     }
 }
