@@ -2,6 +2,10 @@
 
 class Student_Model extends CI_Model
 {
+    /**
+     * Used for retrieving all students.
+     * @return mixed
+     */
     function get_students()
     {
         return $this->db->select('*')
@@ -11,45 +15,55 @@ class Student_Model extends CI_Model
             ->result();
     }
 
-    function register()
+    /**
+     * Used for students bulk registration using csv file.
+     * @return bool
+     */
+    function register_class()
     {
-        $csvFile = fopen($_FILES['nux_csv']['tmp_name'], 'r');
+        $csvFile = fopen($_FILES['csv_file']['tmp_name'], 'r');
 
         fgetcsv($csvFile);
 
         while (($line = fgetcsv($csvFile)) !== FALSE):
-            $nux = $this->db->select('student_id')
-                ->from('vs_students')
-                ->where('reg_no', strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $line[1])))
+            $reg_no = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $line[0]));
+            $email = strtolower($line[1]);
+            $password = password_hash(
+                preg_replace('/[^A-Za-z0-9]/', '', $line[2]),
+                PASSWORD_BCRYPT, array('cost' => 5)
+            );
+            $year = $this->input->post('year');
+            $programId = $this->input->post('programId');
+
+            //Checking if student has already been added.
+            $count = $this->db->select('id')
+                ->from('students')
+                ->where('reg_no', $reg_no)
                 ->get();
-            if ($nux->num_rows() > 0) {
+
+            if ($count->num_rows() > 0) {
+                //If students exist, Just update their data.
                 $data = array(
-                    'name' => ucwords(strtolower(preg_replace('/[^A-Za-z]/', ' ', $line[0]))),
-                    'index_no' => password_hash(strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $line[2])), PASSWORD_BCRYPT, array('cost' => 4)),
-                    'password' => password_hash(preg_replace('/[^A-Za-z0-9]/', '', $line[3]), PASSWORD_BCRYPT, array('cost' => 5)),
-                    'sex' => strtolower(preg_replace('/[^A-Za-z]/', '', $line[4])),
-                    'residence_id' => preg_replace('/[^0-9]/', '', $line[5]),
-                    'school_id' => $this->input->post('school_id'),
-                    'faculty_id' => $this->input->post('faculty_id'),
-                    'year' => $this->input->post('year')
+                    'email' => $email,
+                    'password' => $password,
+                    'programId' => $programId,
+                    'year' => $year
                 );
 
-                $reg_no =
-                    $this->db->where('reg_no', strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $line[1])))->update('vs_students', $data);
+                $this->db
+                    ->where('reg_no', $reg_no)
+                    ->update('students', $data);
             } else {
-
+                //or inserting data.
                 $data = array(
-                    'name' => ucwords(strtolower(preg_replace('/[^A-Za-z]/', ' ', $line[0]))),
-                    'reg_no' => strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $line[1])),
-                    'index_no' => password_hash(strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $line[2])), PASSWORD_BCRYPT, array('cost' => 4)),
-                    'password' => password_hash(preg_replace('/[^A-Za-z0-9]/', '', $line[3]), PASSWORD_BCRYPT, array('cost' => 5)),
-                    'sex' => strtolower(preg_replace('/[^A-Za-z]/', '', $line[4])),
-                    'residence_id' => preg_replace('/[^0-9]/', '', $line[5]),
-                    'school_id' => $this->input->post('school_id'),
-                    'faculty_id' => $this->input->post('faculty_id'),
-                    'year' => $this->input->post('year')
+                    'email' => $email,
+                    'reg_no' => $reg_no,
+                    'password' => $password,
+                    'programId' => $programId,
+                    'year' => $year
                 );
-                $this->db->insert('vs_students', $data);
+
+                $this->db->insert('students', $data);
             }
         endwhile;
 

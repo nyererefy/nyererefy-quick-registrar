@@ -13,7 +13,7 @@ class Program_model extends CI_Model
     function add_program()
     {
         $data = array(
-            'title' => $this->input->post('title'),
+            'title' => ucwords($this->input->post('title')),
             'abbreviation' => strtoupper($this->input->post('abbreviation'))
         );
 

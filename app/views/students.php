@@ -1,5 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
+<!--Todo using ajax for everything-->
+<!--Todo deleting class-->
+<!--Todo deleting student-->
+<!--Todo editing student-->
+
 <div class="row">
     <div class="col-lg-12">
         <div class="btn-group pull-right">
@@ -9,14 +14,12 @@
             </button>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="" data-toggle="modal" data-target="#delete_class">Delete Class</a></li>
-                <li class="divider"></li>
-                <li><a href="" data-toggle="modal" data-target="#delete">Delete All</a></li>
             </ul>
         </div>
 
         <div class="btn-group pull-left">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                Add
+                Register
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
@@ -28,8 +31,8 @@
         <h3 class="text-center">All Students</h3>
     </div>
 </div>
-<div class="col-lg-12">
 
+<div class="col-lg-12">
     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-nux">
         <thead>
         <tr>
@@ -57,7 +60,6 @@
 
 <hr>
 
-
 <div class="modal fade" id="NuxImport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -75,36 +77,32 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Name</th>
                         <th>Reg No</th>
-                        <th>Index No</th>
+                        <th>Email</th>
                         <th>Password</th>
-                        <th>Sex</th>
-                        <th>Residence Id</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Arya Stark</td>
                         <td>REG/340/10</td>
-                        <td>S0400/0012/2001</td>
-                        <td>786521</td>
-                        <td>Female</td>
-                        <td>2</td>
+                        <td>aryastark@gmail.com</td>
+                        <td>787878</td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
             <div class="modal-body">
 
-                <?= form_open_multipart('students/register') ?>
+                <?= form_open_multipart('students/register_class') ?>
 
                 <div class="form-group input-group">
-                    <span class="input-group-addon">School</span>
-                    <input type="text">
+                    <span class="input-group-addon">Program</span>
+                    <select name="programId" class="form-control">
+                        <?php foreach ($programs as $program): ?>
+                            <?= "<option value='$program->id'>$program->title</option>" ?>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
-
 
                 <div class="form-group input-group">
                     <span class="input-group-addon">Year</span>
@@ -120,7 +118,7 @@
 
                 <div class="form-group input-group">
                     <span class="input-group-addon">CSV</span>
-                    <input value="" type="file" class="form-control" name="nux_csv" required>
+                    <input value="" type="file" class="form-control" name="csv_file" required>
                 </div>
 
                 <div class="modal-footer">
@@ -146,11 +144,11 @@
                 <h4 class="text-danger text-center">This will delete all students in the class below.</h4>
                 <?= form_open('students/delete_class') ?>
                 <div class="form-group input-group">
-                    <span class="input-group-addon">Faculty</span>
-                    <select name="faculty_id" class="form-control">
-                        <!--                        --><?php //foreach ($faculties as $faculty): ?>
-                        <!--                            --><? //= "<option value='$faculty->faculty_id'>$faculty->faculty</option>" ?>
-                        <!--                        --><?php //endforeach; ?>
+                    <span class="input-group-addon">Program</span>
+                    <select name="programId" class="form-control">
+                        <?php foreach ($programs as $program): ?>
+                            <?= "<option value='$program->id'>$program->title</option>" ?>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
@@ -173,8 +171,6 @@
             </div>
             <?= form_close() ?>
         </div>
-
-
     </div>
 </div>
 
