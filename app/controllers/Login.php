@@ -9,6 +9,11 @@ class Login extends CI_Controller
         $this->load->library('form_validation');
     }
 
+
+    /**
+     * Default email: admin@nyererefy.com
+     * Default password: password
+     */
     function index()
     {
         $this->form_validation->set_rules('email', 'Email', 'trim|max_length[100]|min_length[6]|required');
@@ -49,7 +54,7 @@ class Login extends CI_Controller
     {
         $this->load->library('unit_test');
 
-        $data = $this->admin_model->login('admin@nyererefy.com', '111111');
+        $data = $this->admin_model->login('admin@nyererefy.com', 'password');
 
         echo $this->unit->run($data, 'is_object', 'It should return student data');
         echo $this->unit->run($data->email, 'is_string', 'It should return string');

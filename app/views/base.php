@@ -41,6 +41,8 @@
                     <li class="divider"></li>
                     <li><a href="<?= base_url() ?>"><i class="fa fa-users fa-fw"></i> Students</a></li>
                     <li class="divider"></li>
+                    <li><a href="<?= base_url() ?>settings"><i class="fa fa-users fa-fw"></i> Settings</a></li>
+                    <li class="divider"></li>
                     <li><a href="<?= base_url() ?>login/logout"><i class="fa fa-power-off fa-fw"></i> Logout</a></li>
                 </ul>
             </div>
