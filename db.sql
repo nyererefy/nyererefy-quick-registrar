@@ -23,9 +23,13 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `reg_no` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Data exporting was unselected.
+-- Dumping data for table registrar.admins: ~0 rows (approximately)
+/*!40000 ALTER TABLE `admins` DISABLE KEYS */;
+INSERT INTO `admins` (`id`, `email`, `password`) VALUES
+(1, 'admin@nyererefy.com', '$2y$12$NWm9vXLO0nxXvvSoi.peUu69YzgnhqmCm9oEKFHLg5APX11E8q6ha');
+/*!40000 ALTER TABLE `admins` ENABLE KEYS */;
 
 -- Dumping structure for table registrar.programs
 CREATE TABLE IF NOT EXISTS `programs` (
@@ -34,9 +38,11 @@ CREATE TABLE IF NOT EXISTS `programs` (
   `abbreviation` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `identifier` (`abbreviation`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+  ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Data exporting was unselected.
+-- Dumping data for table registrar.programs: ~8 rows (approximately)
+/*!40000 ALTER TABLE `programs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `programs` ENABLE KEYS */;
 
 -- Dumping structure for table registrar.students
 CREATE TABLE IF NOT EXISTS `students` (
@@ -51,9 +57,11 @@ CREATE TABLE IF NOT EXISTS `students` (
   UNIQUE KEY `email` (`email`),
   KEY `FK_students_programs` (`programId`),
   CONSTRAINT `FK_students_programs` FOREIGN KEY (`programId`) REFERENCES `programs` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+  ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
--- Data exporting was unselected.
+-- Dumping data for table registrar.students: ~4 rows (approximately)
+/*!40000 ALTER TABLE `students` DISABLE KEYS */;
+/*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
