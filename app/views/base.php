@@ -22,10 +22,7 @@
 <body>
 
 <div id="wrapper">
-
     <nav id="navbar" class="navbar navbar-fixed-top" role="navigation">
-
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -37,7 +34,6 @@
         </div>
         <!-- /.navbar-header -->
 
-
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -45,7 +41,7 @@
                     <li class="divider"></li>
                     <li><a href="<?= base_url() ?>"><i class="fa fa-users fa-fw"></i> Students</a></li>
                     <li class="divider"></li>
-                    <li><a href="<?= base_url() ?>logout"><i class="fa fa-power-off fa-fw"></i> Logout</a></li>
+                    <li><a href="<?= base_url() ?>login/logout"><i class="fa fa-power-off fa-fw"></i> Logout</a></li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
