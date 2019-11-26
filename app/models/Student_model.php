@@ -1,6 +1,6 @@
 <?php
 
-class Student_Model extends CI_Model
+class Student_model extends CI_Model
 {
     /**
      * Used for retrieving all students.
